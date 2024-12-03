@@ -9,3 +9,4 @@ services:
       - ./config.yml:/app/config.yml  # Mount configuration file
       - ./screenshots:/app/screenshots  # Mount screenshot directory
     restart: always
+    network_mode: "host"  # Use host networking
