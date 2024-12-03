@@ -1,5 +1,19 @@
-# Use a lightweight Python image
-FROM python:3.11-slim
+# Use a Python image with browser support
+FROM python:3.11-slim-bullseye
+
+# Install system dependencies for Chrome and ChromeDriver
+RUN apt-get update && apt-get install -y \
+    wget \
+    gnupg \
+    unzip \
+    chromium \
+    chromium-driver \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PATH="/usr/bin:${PATH}"
 
 # Set the working directory in the container
 WORKDIR /app
