@@ -6,8 +6,11 @@ services:
     volumes:
       - ./config.yml:/app/config.yml  # Mount configuration file
       - ./screenshots:/app/screenshots  # Mount screenshot directory
+      - /etc/localtime:/etc/localtime:ro  # Sync container timezone with host
+      - /etc/timezone:/etc/timezone:ro  # Sync timezone settings with host
     restart: always
     network_mode: "host"  # Use host networking for direct access to local services
     environment:
       - PYTHONUNBUFFERED=1  # Ensure logs appear immediately in Docker logs
+      - TZ=Europe/Ljubljana  # Set timezone to Ljubljana, EU
     command: python main.py  # Define the command to run your Python script

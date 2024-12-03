@@ -8,4 +8,4 @@ retries:
   max_retries: 3
   delay: 5
 schedule:
-  time: "09:00"
+  time: "10:30"
