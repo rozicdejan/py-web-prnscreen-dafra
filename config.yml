@@ -1,0 +1,11 @@
+login:
+  url: "http://192.168.178.10:82/gosoftweb/index.php?page=wpOsebNastDopust"
+  username: "dejanr"
+  password: "dejanr2023"
+screenshot:
+  directory: "./screenshots"
+retries:
+  max_retries: 3
+  delay: 5
+schedule:
+  time: "09:00"

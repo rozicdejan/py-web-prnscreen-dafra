@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  python-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./config.yml:/app/config.yml  # Mount configuration file
+      - ./screenshots:/app/screenshots  # Mount screenshot directory
+    restart: always
