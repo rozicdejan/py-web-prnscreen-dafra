@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   python-app:
     build:
@@ -9,4 +7,7 @@ services:
       - ./config.yml:/app/config.yml  # Mount configuration file
       - ./screenshots:/app/screenshots  # Mount screenshot directory
     restart: always
-    network_mode: "host"  # Use host networking
+    network_mode: "host"  # Use host networking for direct access to local services
+    environment:
+      - PYTHONUNBUFFERED=1  # Ensure logs appear immediately in Docker logs
+    command: python main.py  # Define the command to run your Python script
