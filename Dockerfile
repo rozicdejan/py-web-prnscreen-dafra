@@ -1,10 +1,9 @@
 # Use a Python image with browser support
 FROM python:3.11-slim-bullseye
 
-# Install Chromium and its dependencies
 RUN apt-get update && apt-get install -y \
-    chromium-driver \
-    chromium \
+    chromium-driver=120.0.6099.224-1~deb11u1 \
+    chromium=120.0.6099.224-1~deb11u1 \
     libglib2.0-0 \
     libnss3 \
     libgconf-2-4 \

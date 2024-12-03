@@ -2,14 +2,12 @@ import yaml
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 import schedule
 import time
 from datetime import datetime
 import os
 import psutil  # To monitor system and container resources
-
-# Explicit path to ChromeDriver
-CHROMEDRIVER_PATH = "/usr/bin/chromedriver"
 
 # Load configuration from config.yml
 def load_config(file="config.yml"):
@@ -70,13 +68,13 @@ def take_screenshot(config):
         # Setup WebDriver
         options = webdriver.ChromeOptions()
         options.add_argument("--headless")  # Run in headless mode
-        options.add_argument("--no-sandbox")  # Disable sandbox
+        options.add_argument("--no-sandbox")  # Disable the sandbox
         options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
         options.add_argument("--disable-gpu")  # Disable GPU rendering
-        options.add_argument("--window-size=1920,1080")  # Set window size
-
-        service = Service(CHROMEDRIVER_PATH)
-        driver = webdriver.Chrome(service=service, options=options)
+        options.add_argument("--disable-extensions")  # Disable extensions
+        options.add_argument("--remote-debugging-port=9222")  # Enable remote debugging
+        options.add_argument("--window-size=1920,1080")  # Set a specific window size
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         print(f"[{datetime.now()}] WebDriver setup complete")
 
         # Open the website
