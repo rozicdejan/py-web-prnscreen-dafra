@@ -30,6 +30,7 @@ def take_screenshot_with_retry(config, max_retries, delay):
 
 # Main function to take a screenshot
 def take_screenshot(config):
+    driver = None  # Initialize driver to None
     try:
         # Setup WebDriver
         options = webdriver.ChromeOptions()
@@ -60,15 +61,17 @@ def take_screenshot(config):
         os.makedirs(screenshot_dir, exist_ok=True)
 
         # Take a screenshot
-        timestamp = datetime.now().strftime("%Y-%d-%m_%H-%M-%S")
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         screenshot_path = os.path.join(screenshot_dir, f"screenshot_{timestamp}.png")
         driver.save_screenshot(screenshot_path)
         print(f"Screenshot saved as {screenshot_path}")
 
     except Exception as e:
-        raise Exception(f"Failed to take screenshot: {e}")
+        print(f"An error occurred: {e}")
+        raise  # Re-raise the exception for retry handling
     finally:
-        driver.quit()
+        if driver is not None:
+            driver.quit()  # Ensure the driver is quit properly
 
 if __name__ == "__main__":
     # Load the configuration
