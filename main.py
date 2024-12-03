@@ -67,8 +67,13 @@ def take_screenshot(config):
         print(f"[{datetime.now()}] Setting up WebDriver")
         # Setup WebDriver
         options = webdriver.ChromeOptions()
-        options.add_argument("--headless")  # Run in headless mode (no browser UI)
-        options.add_argument("--window-size=1920,1080")
+        options.add_argument("--headless")  # Run in headless mode
+        options.add_argument("--no-sandbox")  # Disable the sandbox (necessary in Docker)
+        options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+        options.add_argument("--disable-gpu")  # Disable GPU (not needed in headless mode)
+        options.add_argument("--disable-extensions")  # Disable extensions
+        options.add_argument("--remote-debugging-port=9222")  # Enable remote debugging
+        options.add_argument("--window-size=1920,1080")  # Set a specific window size
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         print(f"[{datetime.now()}] WebDriver setup complete")
 
